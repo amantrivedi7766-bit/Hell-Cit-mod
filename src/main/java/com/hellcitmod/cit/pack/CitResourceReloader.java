@@ -31,7 +31,13 @@ public final class CitResourceReloader implements IdentifiableResourceReloadList
 
     private List<CitRule> prepare(ResourceManager manager) {
         List<CitRule> rules = new ArrayList<>();
-        Map<Identifier, List<Resource>> resources = manager.findAllResources("cit", id -> id.getPath().endsWith(".properties"));
+        loadRulesFromPath(manager, rules, "cit");
+        loadRulesFromPath(manager, rules, "optifine/cit");
+        return rules;
+    }
+
+    private void loadRulesFromPath(ResourceManager manager, List<CitRule> rules, String root) {
+        Map<Identifier, List<Resource>> resources = manager.findAllResources(root, id -> id.getPath().endsWith(".properties"));
 
         for (var entry : resources.entrySet()) {
             for (Resource resource : entry.getValue()) {
@@ -42,7 +48,6 @@ public final class CitResourceReloader implements IdentifiableResourceReloadList
                 }
             }
         }
-        return rules;
     }
 
     @Override

@@ -46,7 +46,14 @@ public final class CitPropertiesParser {
         if (name != null && !name.isBlank()) {
             boolean caseSensitive = Boolean.parseBoolean(p.getProperty("matchCase", "false"));
             boolean regex = Boolean.parseBoolean(p.getProperty("nameRegex", "false"));
-            out.add(new NameCondition(name, caseSensitive, regex));
+            String trimmed = name.trim();
+            if (trimmed.startsWith("ipattern:")) {
+                out.add(new WildcardNameCondition(trimmed.substring("ipattern:".length()), true));
+            } else if (trimmed.startsWith("pattern:")) {
+                out.add(new WildcardNameCondition(trimmed.substring("pattern:".length()), false));
+            } else {
+                out.add(new NameCondition(name, caseSensitive, regex));
+            }
         }
 
         String lore = p.getProperty("nbt.display.Lore", p.getProperty("lore"));
