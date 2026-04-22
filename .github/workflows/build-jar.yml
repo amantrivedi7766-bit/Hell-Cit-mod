@@ -54,11 +54,15 @@ jobs:
           name: hellcit-base-build
           path: base
 
-      - name: Create version-specific jar name
+      - name: Create version-specific jar
         run: |
-          mkdir -p dist
+          mkdir -p dist work
           for jar in base/*.jar; do
-            cp "$jar" "dist/hellcit-mc${{ matrix.mc }}.jar"
+            rm -rf work/content
+            mkdir -p work/content
+            (cd work/content && jar xf "$GITHUB_WORKSPACE/$jar")
+            echo "target_minecraft=${{ matrix.mc }}" > work/content/META-INF/hellcit-target.properties
+            (cd work/content && jar cf "$GITHUB_WORKSPACE/dist/hellcit-mc${{ matrix.mc }}.jar" .)
           done
 
       - name: Upload versioned jar

@@ -55,7 +55,7 @@ model=fire_blade
 - Workflow file: `.github/workflows/build-jar.yml`
 - CI pe core compile step **1.21.1** par hota hai (stable base build).
 - Workflow us base output se **1.21 se 1.21.11** tak har version ke liye alag-alag jar artifact banata hai: `hell-cit-mod-jars-<mc_version>`.
-- Har artifact ke andar jar ka naam version-specific hota hai: `hellcit-mc<mc_version>.jar` (jaise `hellcit-mc1.21.6.jar`).
+- Har artifact ke andar jar ka naam version-specific hota hai: `hellcit-mc<mc_version>.jar` (jaise `hellcit-mc1.21.6.jar`), aur jar me `META-INF/hellcit-target.properties` me target version stamp bhi hota hai.
 - Download path: **Actions → Build Mod JAR (1.21.x Artifacts) → run → Artifacts**.
 
 ## Dev notes
