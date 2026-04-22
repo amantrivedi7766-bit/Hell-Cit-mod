@@ -59,7 +59,7 @@ model=fire_blade
 - Download path: **Actions → Build Mod JAR (1.21.4) → run → Artifacts**.
 
 ## Dev notes
-- CI Gradle pinned to `8.14.3` (Fabric Loom 1.7.4 compatibility fix).
+- CI Gradle pinned to `8.10.2` with Fabric Loom `1.7.4` (stable compatibility pair).
 - Loader: Fabric
 - Java: 21
 - Modular architecture: parser/registry/resolver/cache/conditions
