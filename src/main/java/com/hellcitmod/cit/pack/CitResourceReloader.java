@@ -7,7 +7,6 @@ import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.resource.Resource;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.profiler.Profiler;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -24,7 +23,7 @@ public final class CitResourceReloader implements IdentifiableResourceReloadList
     private final CitPropertiesParser parser = new CitPropertiesParser();
 
     @Override
-    public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager, Profiler prepareProfiler, Profiler applyProfiler, Executor prepareExecutor, Executor applyExecutor) {
+    public CompletableFuture<Void> reload(Synchronizer synchronizer, ResourceManager manager, Executor prepareExecutor, Executor applyExecutor) {
         return CompletableFuture.supplyAsync(() -> prepare(manager), prepareExecutor)
                 .thenCompose(synchronizer::whenPrepared)
                 .thenAcceptAsync(CitModelResolver::reload, applyExecutor);
