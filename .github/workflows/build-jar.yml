@@ -1,4 +1,4 @@
-name: Build Mod JAR (1.21.x Artifacts)
+name: Build Mod JAR (1.21.4)
 
 on:
   push:
@@ -10,8 +10,8 @@ permissions:
   contents: read
 
 jobs:
-  build-core:
-    name: Build core jar (1.21.1)
+  build-1-21-4:
+    name: Build jar for 1.21.4
     runs-on: ubuntu-latest
 
     steps:
@@ -30,44 +30,16 @@ jobs:
       - name: Build
         run: gradle --no-daemon clean build
 
-      - name: Upload internal base jar
-        uses: actions/upload-artifact@v4
-        with:
-          name: hellcit-base-build
-          path: build/libs/*.jar
-          if-no-files-found: error
-          retention-days: 1
-
-  publish-versioned-artifacts:
-    name: Publish jar for ${{ matrix.mc }}
-    runs-on: ubuntu-latest
-    needs: build-core
-    strategy:
-      fail-fast: false
-      matrix:
-        mc: ["1.21", "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5", "1.21.6", "1.21.7", "1.21.8", "1.21.9", "1.21.10", "1.21.11"]
-
-    steps:
-      - name: Download base jar
-        uses: actions/download-artifact@v4
-        with:
-          name: hellcit-base-build
-          path: base
-
-      - name: Create version-specific jar
+      - name: Prepare versioned jar
         run: |
-          mkdir -p dist work
-          for jar in base/*.jar; do
-            rm -rf work/content
-            mkdir -p work/content
-            (cd work/content && jar xf "$GITHUB_WORKSPACE/$jar")
-            echo "target_minecraft=${{ matrix.mc }}" > work/content/META-INF/hellcit-target.properties
-            (cd work/content && jar cf "$GITHUB_WORKSPACE/dist/hellcit-mc${{ matrix.mc }}.jar" .)
+          mkdir -p dist
+          for jar in build/libs/*.jar; do
+            cp "$jar" "dist/hellcit-mc1.21.4.jar"
           done
 
-      - name: Upload versioned jar
+      - name: Upload jar artifact
         uses: actions/upload-artifact@v4
         with:
-          name: hell-cit-mod-jars-${{ matrix.mc }}
+          name: hell-cit-mod-jars-1.21.4
           path: dist/*.jar
           if-no-files-found: error
