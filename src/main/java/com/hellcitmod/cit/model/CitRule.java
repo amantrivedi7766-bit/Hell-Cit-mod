@@ -9,7 +9,10 @@ public record CitRule(
         String source,
         List<Identifier> items,
         Identifier modelId,
+        String type,
+        String hand,
         List<CitCondition> conditions,
-        int priority
+        int priority,
+        boolean enabled
 ) {
 }

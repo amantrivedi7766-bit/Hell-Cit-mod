@@ -1,22 +1,27 @@
 # Hell-Cit-mod
 
-Fabric based CIT (Custom Item Texture) mod scaffold for Minecraft **1.21.1 → 1.21.6**.
+Fabric based CIT (Custom Item Texture) mod scaffold for Minecraft **1.21.1 → 1.21.11**.
 
 ## Features implemented
 - Resource-pack CIT `.properties` parsing from `assets/<namespace>/cit/**/*.properties`
 - Rule matching by:
   - `matchItems`
-  - `nbt.display.Name` (+ `matchCase=true|false`)
+  - `nbt.display.Name` (+ `matchCase=true|false`, `nameRegex=true|false`)
+  - `nbt.display.Lore` (`loreRegex`, `loreCaseSensitive`)
   - `nbt.CustomModelData` / `CustomModelData`
-  - `enchantment`, `enchantmentLevel`
+  - `enchantments` or `enchantment`
   - `stackSize`
   - `damage`
+  - `damagePercent`
+  - generic `nbt.<path>` style checks
 - Runtime model override via `ItemRenderer` mixin
-- Fast LRU cache for repeated stack lookups
-- Graceful fallback (invalid files are skipped, default model remains)
+- LRU cache for repeated stack lookups + debug stats
+- Safe fallback (invalid files are skipped, default model remains)
 - Commands:
   - `/cit reload`
   - `/cit debug`
+  - `/cit clearCache`
+- Mod Menu integration entrypoint added (`modmenu`)
 
 ## Resource-pack layout
 Place properties, model JSON, and texture in one logical CIT folder and connect through the `.properties` file:
@@ -33,22 +38,30 @@ assets/<namespace>/
 Example `fire_blade.properties`:
 
 ```properties
+type=item
 matchItems=minecraft:diamond_sword
 nbt.display.Name=Fire Blade
 matchCase=false
-enchantment=minecraft:fire_aspect
+nameRegex=false
+enchantments=minecraft:fire_aspect,minecraft:sharpness
 enchantmentLevel=1
+damagePercent=0-60
 model=fire_blade
 ```
 
 > `model=fire_blade` resolves relative to the properties folder (`cit/swords/fire_blade`).
 
+## GitHub Actions compiled JARs
+- Workflow file: `.github/workflows/build-jar.yml`
+- Matrix builds configured for **1.21.1 to 1.21.11**.
+- Artifacts upload per version as `hell-cit-mod-jars-<mc_version>`.
+- Download path: **Actions → Build Mod JAR (1.21.x Matrix) → run → Artifacts**.
+
 ## Dev notes
 - Loader: Fabric
 - Java: 21
-- Designed with modular parser/registry/resolver/cache so minor version migration stays manageable.
-
-## GitHub Actions se compiled JAR kaise milega
-- Workflow file add hai: `.github/workflows/build-jar.yml`
-- Har `push`, `pull_request`, aur manual `workflow_dispatch` par build chalega.
-- GitHub repo me **Actions → Build Mod JAR → latest run → Artifacts** me `hell-cit-mod-jars` download karein.
+- Modular architecture: parser/registry/resolver/cache/conditions
+- Build accepts version overrides:
+  - `-PmcVersion=...`
+  - `-PyarnVersion=...`
+  - `-PfabricApiVersion=...`

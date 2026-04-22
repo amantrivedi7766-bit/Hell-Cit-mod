@@ -29,6 +29,13 @@ public final class CitCommands {
                                     var held = client.player.getMainHandStack();
                                     var result = CitModelResolver.resolve(held).map(Object::toString).orElse("<default>");
                                     ctx.getSource().sendFeedback(Text.literal("[CIT] Match: " + result));
+                                    ctx.getSource().sendFeedback(Text.literal("[CIT] Stats: " + CitModelResolver.debugStats()));
+                                    return 1;
+                                }))
+                        .then(ClientCommandManager.literal("clearCache")
+                                .executes(ctx -> {
+                                    CitModelResolver.clearCache();
+                                    ctx.getSource().sendFeedback(Text.literal("[CIT] Cache cleared"));
                                     return 1;
                                 }))
         ));
