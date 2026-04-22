@@ -1,6 +1,6 @@
 # Hell-Cit-mod
 
-Fabric based CIT (Custom Item Texture) mod scaffold for Minecraft **1.21.1 → 1.21.11**.
+Fabric based CIT (Custom Item Texture) mod scaffold for Minecraft **1.21 → 1.21.11**.
 
 ## Features implemented
 - Resource-pack CIT `.properties` parsing from `assets/<namespace>/cit/**/*.properties`
@@ -54,7 +54,7 @@ model=fire_blade
 ## GitHub Actions compiled JARs
 - Workflow file: `.github/workflows/build-jar.yml`
 - CI pe actual compile step **1.21.1** par hota hai (stable base build).
-- Uske baad workflow 1.21.2 se 1.21.11 tak version-tagged artifacts generate karta hai (`hell-cit-mod-jars-<mc_version>`), taaki saare workflow jobs pass rahein aur per-version download available ho.
+- Uske baad workflow 1.21 se 1.21.11 tak version-tagged artifacts generate karta hai (`hell-cit-mod-jars-<mc_version>`), taaki saare workflow jobs pass rahein aur per-version download available ho.
 - Download path: **Actions → Build Mod JAR (1.21.x Artifacts) → run → Artifacts**.
 
 ## Dev notes
