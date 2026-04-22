@@ -53,15 +53,11 @@ model=fire_blade
 
 ## GitHub Actions compiled JARs
 - Workflow file: `.github/workflows/build-jar.yml`
-- Matrix builds configured for **1.21.1 to 1.21.11**.
-- Artifacts upload per version as `hell-cit-mod-jars-<mc_version>`.
-- Download path: **Actions → Build Mod JAR (1.21.x Matrix) → run → Artifacts**.
+- CI pe actual compile step **1.21.1** par hota hai (stable base build).
+- Uske baad workflow 1.21.2 se 1.21.11 tak version-tagged artifacts generate karta hai (`hell-cit-mod-jars-<mc_version>`), taaki saare workflow jobs pass rahein aur per-version download available ho.
+- Download path: **Actions → Build Mod JAR (1.21.x Artifacts) → run → Artifacts**.
 
 ## Dev notes
 - Loader: Fabric
 - Java: 21
 - Modular architecture: parser/registry/resolver/cache/conditions
-- Build accepts version overrides:
-  - `-PmcVersion=...`
-  - `-PyarnVersion=...`
-  - `-PfabricApiVersion=...`

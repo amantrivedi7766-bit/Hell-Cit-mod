@@ -1,14 +1,10 @@
 plugins {
-    id 'fabric-loom' version '1.8.13'
+    id 'fabric-loom' version '1.7-SNAPSHOT'
     id 'maven-publish'
 }
 
 group = 'com.hellcitmod'
-version = '0.2.0'
-
-def mcVersion = findProperty('mcVersion') ?: '1.21.1'
-def yarnVersion = findProperty('yarnVersion') ?: '1.21.1+build.3'
-def fabricApiVersion = findProperty('fabricApiVersion') ?: '0.115.0+1.21.1'
+version = '0.2.1'
 
 repositories {
     mavenCentral()
@@ -17,10 +13,10 @@ repositories {
 }
 
 dependencies {
-    minecraft "com.mojang:minecraft:${mcVersion}"
-    mappings "net.fabricmc:yarn:${yarnVersion}:v2"
+    minecraft 'com.mojang:minecraft:1.21.1'
+    mappings 'net.fabricmc:yarn:1.21.1+build.3:v2'
     modImplementation 'net.fabricmc:fabric-loader:0.16.14'
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabricApiVersion}"
+    modImplementation 'net.fabricmc.fabric-api:fabric-api:0.115.0+1.21.1'
     modCompileOnly 'com.terraformersmc:modmenu:11.0.3'
 }
 
