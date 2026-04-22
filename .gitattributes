@@ -1,0 +1,10 @@
+* text=auto eol=lf
+
+# Force common project files as text for clean diffs/branch updates
+*.java text
+*.json text
+*.md text
+*.yml text
+*.yaml text
+*.properties text
+*.gradle text
