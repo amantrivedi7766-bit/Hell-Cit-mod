@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "id": "hellcit",
+  "version": "${version}",
+  "name": "Hell CIT",
+  "description": "Custom Item Texture runtime for modern Minecraft resource packs.",
+  "authors": ["Hell-Cit-mod"],
+  "environment": "client",
+  "entrypoints": {
+    "client": ["com.hellcitmod.cit.HellCitMod"]
+  },
+  "mixins": ["hellcit.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.16.10",
+    "minecraft": ">=1.21.1 <=1.21.6",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}
